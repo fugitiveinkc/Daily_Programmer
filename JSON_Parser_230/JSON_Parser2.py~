@@ -1,0 +1,32 @@
+import json
+
+def search_dict(dict_node, search='dailyprogrammer'):
+    for k,v in dict_node.items():
+        if v == search:
+            return [v]
+        if isinstance(v, dict):
+            r = search_dict(v)
+            if r: return [k] + r
+        if isinstance(v, list):
+            r = search_list(v)
+            if r: return [k] + r
+    return []
+
+def search_list(list_node, search='dailyprogrammer'):
+    if search in list_node: return [list_node.index(search)]
+    for v in list_node:
+        if isinstance(v, dict):
+            r = search_dict(v)
+            if r: return [list_node.index(v)] + r
+        if isinstance(v, list):
+            r = search_list(v)
+            if r: return [list_node.index(v)] + r
+    return []
+
+def print_result(file_name):
+    with open(file_name) as f:
+        result = search_dict(json.load(f))
+        print(' -> '.join(map(str, result)))
+
+print_result('challenge1.txt')
+print_result('challenge2.txt')
