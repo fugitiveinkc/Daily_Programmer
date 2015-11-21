@@ -21,7 +21,7 @@ def read_input(filename = 'points.txt'):
 	raw_points = open(filename, 'r+')
 	raw_points = raw_points.read().split('\n')
 	points = []
-	for index, line in enumerate(raw_points[1:-1]):
+	for line in raw_points[1:-1]:
 		x, y = line[1:-1].split(',')
 		points.append((float(x), float(y)))		
 	return points
