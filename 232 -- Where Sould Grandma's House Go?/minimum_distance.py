@@ -19,15 +19,11 @@ from math import hypot as dist
 
 def read_input(filename = 'points.txt'):
 	raw_points = open(filename, 'r+')
-	number_of_points = 0
+	raw_points = raw_points.read().split('\n')
 	points = []
-	for index, line in enumerate(raw_points):
-		if index == 0:
-			number_of_points = int(line)
-		else:
-			line = line.strip('\n')
-			x, y = line[1:-1].split(',')
-			points.append((float(x), float(y)))		
+	for index, line in enumerate(raw_points[1:-1]):
+		x, y = line[1:-1].split(',')
+		points.append((float(x), float(y)))		
 	return points
 
 
@@ -40,7 +36,7 @@ def brute_force(points):
 		for p2 in points:
 			if p1 != p2:
 				distance = dist(p1[0]-p2[0], p1[1]-p2[1])
-				if distance < smallest_distance:
+				if distance <= smallest_distance:
 					smallest_distance = distance
 					minimum_two_points = [p1, p2]
 			else:
@@ -51,6 +47,7 @@ def brute_force(points):
 
 #Method 2: Recursion
 #--Divide and conquer?
+
 
 
 #--TESTING GROUND--#
