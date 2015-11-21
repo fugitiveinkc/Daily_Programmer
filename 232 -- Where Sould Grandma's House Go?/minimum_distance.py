@@ -32,8 +32,8 @@ def read_input(filename = 'points.txt'):
 def brute_force(points):
 	smallest_distance = dist(points[0][0]-points[0][1], points[1][0]-points[1][1])
 	minimum_two_points = None
-	for p1 in points:
-		for p2 in points:
+	for index, p1 in enumerate(points):
+		for p2 in points[index+1:]:
 			if p1 != p2:
 				distance = dist(p1[0]-p2[0], p1[1]-p2[1])
 				if distance <= smallest_distance:
