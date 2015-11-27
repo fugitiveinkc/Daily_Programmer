@@ -7,9 +7,43 @@ Goal: You have a plant who's fruit can feed 1 person for a whole week.  Fruits a
 
 '''
 
-#--Solution 1 : 11/24/2015--#
+#--Solution 1 : 11/27/2015--#
 
-#Read input from command line
+
+#Necessary libraries
+
+from itertools import count
+from sys import argv
+
+#Read input from command line (Direct for now)
+
+number_of_people = int(argv[1])
+number_of_plants = int(argv[2])
+
+
+#Initialize number of plants
+
+plants = [count() for i in range(number_of_plants)] #A list of generators
+
+
+#Produce and plant plants until number of people is satisfied
+
+for week in count(1):
+	fruit_totals = 0
+	for plant in plants:
+		fruit_totals += plant.next()
+	if fruit_totals >= number_of_people:
+		print "Number of weeks it'll take: " + str(week)
+		break
+	elif fruit_totals > 0:
+		for x in range(fruit_totals):
+			plants.append(count(1))
+	
+
+
+
+
+
 
 
 
