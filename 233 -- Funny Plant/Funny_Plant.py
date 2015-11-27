@@ -31,14 +31,13 @@ plants = [count() for i in range(number_of_plants)] #A list of generators
 
 for week in count(1):
 	fruit_totals = 0
-	for plant in plants:
+	for plant in plants: #Generates appropriate fruit amount
 		fruit_totals += plant.next()
-	if fruit_totals >= number_of_people:
+	if fruit_totals >= number_of_people: #Checks to see if enough food
 		print "Number of weeks it'll take: " + str(week)
 		break
-	elif fruit_totals > 0:
-		for x in range(fruit_totals):
-			plants.append(count(1))
+	for x in range(fruit_totals): #Adds more plants based on the fruit produced
+		plants.append(count(1))
 	
 
 
