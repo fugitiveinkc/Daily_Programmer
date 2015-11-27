@@ -15,6 +15,7 @@ Goal: You have a plant who's fruit can feed 1 person for a whole week.  Fruits a
 from itertools import count
 from sys import argv
 
+
 #Read input from command line (Direct for now)
 
 number_of_people = int(argv[1])
