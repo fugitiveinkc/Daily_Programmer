@@ -22,7 +22,6 @@ import sys, random
 
 paragraph = open(sys.argv[1], 'r')
 paragraph = [line.strip('\n').split(' ') for line in paragraph]
-print paragraph
 
 
 #Scramble
@@ -35,7 +34,6 @@ for line in paragraph:
 			continue
 		elif '\'' in word: #Handles cases like "doesn't"
 			sample = random.sample(word[1:word.index('\'')-1], word.index('\'')-2)
-			print sample
 			word = word[0] + ''.join(sample) + word[word.index('\'')-1:]
 			line[index_in_line] = word
 		elif word[-1] in ending_punctuation and len(word) > 4: #Handles cases with ending punctuation
