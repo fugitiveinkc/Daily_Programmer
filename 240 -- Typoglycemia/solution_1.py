@@ -7,6 +7,7 @@ Objective: Given a paragraph, scramble the innards of everyword.
 
 Note: Maybe use regex to eliminate edge cases?
 
+
 '''
 
 #--Solution 1 -- 12/3/2015--#
@@ -25,6 +26,7 @@ print paragraph
 
 
 #Scramble
+#Uses regex to clean up
 
 ending_punctuation = [',','.','!','?',':',';']
 for line in paragraph:
