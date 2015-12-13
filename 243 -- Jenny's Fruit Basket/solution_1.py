@@ -7,6 +7,7 @@ Objective: Given input of fruit and price, find the possible combinations with r
 Notes:
 	-Learn to program product function on your own using recursion
 	-Speed up program
+
 '''
 
 #Import necessary libraries
