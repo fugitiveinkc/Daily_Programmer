@@ -53,4 +53,3 @@ for hrs in hours: #Create objects with each of the test hours
 	light_objects.append(lights(hrs))
 for configuration in light_objects: #Print results
 	print "For " + str(configuration.hours) + " hour(s): " + str(configuration.led_count) + " leds."
-
