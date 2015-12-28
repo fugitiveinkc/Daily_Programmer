@@ -46,5 +46,4 @@ for date in dates:
 	print new_date
 	new_dates.write(new_date + '\n')
 
-dates.close()
 new_dates.close()
