@@ -28,8 +28,8 @@ def traversal(a_node): #Error: Has the potential to link families
 			new_node = unvisited[random.randint(0,len(unvisited)-1)]
 			if new_node.name not in a_node.family:
 				break
-		return a_node.name + ' ' + traversal(new_node)
-	
+		return a_node.name + ' ' + traversal(new_node)	
+
 
 #Read in names
 
@@ -50,7 +50,7 @@ unvisited = graph
 
 #Traverse and see path:
 
-path = traversal(unvisited[random.randint(0,len(unvisited)-1)])
+path = traversal(unvisited[random.randint(0,len(unvisited)-1)]) #What if you started with a person with no family?
 path = path.split(' ')
 for index, name in enumerate(path):
 	if index == len(path)-1:
