@@ -16,8 +16,9 @@ random.seed()
 
 #Function to traverse names
 
-def traversal(a_node): #Error: Has the potential to link families
+def traversal(a_node): #Error: Has the potential to link families and never end
 	unvisited.remove(a_node)
+	print a_node.name
 	if not unvisited:
 		return a_node.name
 	else:
@@ -50,7 +51,7 @@ unvisited = graph
 
 #Traverse and see path:
 
-path = traversal(unvisited[random.randint(0,len(unvisited)-1)]) #What if you started with a person with no family?
+path = traversal(unvisited[0]) #What if you started with a person with no family?
 path = path.split(' ')
 for index, name in enumerate(path):
 	if index == len(path)-1:
