@@ -4,8 +4,9 @@ Title: Challenge 247 -- Secret Santa
 
 Objective: Give a list of names and families, construct a secret santa map without an family members getting each other and no loop backs.
 
-'''
+Notes: I think it works?
 
+'''
 
 #Import necessary libraries
 
@@ -16,25 +17,30 @@ random.seed()
 
 #Function to traverse names
 
-def traversal(a_node): #Error: Has the potential to link families and never end
+def traversal(a_node, current_stack):
 	unvisited.remove(a_node)
-	print a_node.name
-	if not unvisited:
-		return a_node.name
+	current_stack.append(a_node)
+	if not unvisited: #Checks to see if unvisited is empty
+		if a_node in current_stack[0].family: #If final node connects back to origin and is family, then wrong.
+			current_stack.pop()
+			unvisited.append(a_node)
+			return False
+		return True
+	elif set(a_node.family).issubset(set(unvisited)) and set(unvisited).issubset(set(a_node.family)): #If unvisited is the same set as the current nodes family.
+		return False
 	else:
-		#1) select name from unvisited
-		#2) If name is in family, reselect
-		#3) Otherwise, traverse with the new name
-		while True:
-			new_node = unvisited[random.randint(0,len(unvisited)-1)]
-			if new_node.name not in a_node.family:
-				break
-		return a_node.name + ' ' + traversal(new_node)	
+		for member in unvisited:
+			if member.name not in a_node.family:
+				if traversal(member, current_stack):
+					return True
+		current_stack.pop()
+		unvisited.append(a_node)
+		return False			
 
 
 #Read in names
 
-participants = open('names.txt')
+participants = open('names2.txt')
 participants = [names.strip('\n').split(' ') for names in participants]
 graph = []
 for names in participants:
@@ -51,10 +57,9 @@ unvisited = graph
 
 #Traverse and see path:
 
-path = traversal(unvisited[0]) #What if you started with a person with no family?
-path = path.split(' ')
-for index, name in enumerate(path):
-	if index == len(path)-1:
-		print name + ' -> ' + path[0]
-	else:
-		print name + ' -> ' + path[index+1] 
+name = []
+traversal(unvisited[0], name)
+name.append(name[0])
+name = [x.name for x in name]
+for x in range(len(name)-1):
+	print name[x] + ' -> ' + name[x+1]
