@@ -32,6 +32,7 @@ def traversal(a_node, current_stack):
 		return False
 	else: #A current node, loops through unvisited node
 		copy_unvisited = unvisited[:] #Crucial: As unvisited is changing, you don't want each node to have a new unvisited list to check
+		random.shuffle(copy_unvisited) #Ensures that selection and produced arrangment is pseudorandom
 		for member in copy_unvisited:
 			if member.name not in a_node.family:
 				if traversal(member, current_stack):
@@ -43,7 +44,7 @@ def traversal(a_node, current_stack):
 
 #Read in names
 
-participants = open('names2.txt')
+participants = open('olive.txt')
 participants = [names.strip('\n').split(' ') for names in participants]
 graph = []
 for names in participants: #Creates nodes with name and family members
@@ -60,9 +61,9 @@ unvisited = graph
 
 #Traverse and see path:
 
-name = []
-traversal(unvisited[random.randint(0,len(unvisited)-1)], name) #Selects random participant to start with to organize
-name.append(name[0])
-name = [x.name for x in name]
-for x in range(len(name)-1):
-	print name[x] + ' -> ' + name[x+1]
+bag = []
+traversal(unvisited[random.randint(0,len(unvisited)-1)], bag) #Selects random participant to start with to organize
+bag.append(bag[0]) #Appends first person to the end as well
+bag = [x.name for x in bag]
+for x in range(len(bag)-1):
+	print bag[x] + ' -> ' + bag[x+1]
