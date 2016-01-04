@@ -20,20 +20,16 @@ random.seed()
 def traversal(a_node, current_stack):
 	unvisited.remove(a_node)
 	current_stack.append(a_node)
-	
 	for name in current_stack:
 		names.append(name.name)
-	
 	if not unvisited: #Checks to see if unvisited is empty
 		if a_node in current_stack[0].family: #If final node connects back to origin and is family, then wrong.
 			current_stack.pop()
 			unvisited.append(a_node)
 			return False
 		return True
-	
 	elif set(a_node.family).issubset(set(unvisited)) and set(unvisited).issubset(set(a_node.family)): #If unvisited is the same set as the current nodes family.
 		return False
-	
 	else: #A current node, loops through unvisited node
 		copy_unvisited = unvisited[:] #Crucial: As unvisited is changing, you don't want each node to have a new unvisited list to check
 		for member in copy_unvisited:
