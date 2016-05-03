@@ -4,8 +4,9 @@ Title: Challenge 247 -- Secret Santa
 
 Objective: Give a list of names and families, construct a secret santa map without an family members getting each other and no loop backs.
 
-'''
+Notes: Unvisited list is the tricky part here.
 
+'''
 
 #Import necessary libraries
 
@@ -16,28 +17,37 @@ random.seed()
 
 #Function to traverse names
 
-def traversal(a_node): #Error: Has the potential to link families and never end
+def traversal(a_node, current_stack):
 	unvisited.remove(a_node)
-	print a_node.name
-	if not unvisited:
-		return a_node.name
-	else:
-		#1) select name from unvisited
-		#2) If name is in family, reselect
-		#3) Otherwise, traverse with the new name
-		while True:
-			new_node = unvisited[random.randint(0,len(unvisited)-1)]
-			if new_node.name not in a_node.family:
-				break
-		return a_node.name + ' ' + traversal(new_node)	
+	current_stack.append(a_node)
+	for name in current_stack:
+		names.append(name.name)
+	if not unvisited: #Checks to see if unvisited is empty
+		if a_node in current_stack[0].family: #If final node connects back to origin and is family, then wrong.
+			current_stack.pop()
+			unvisited.append(a_node)
+			return False
+		return True
+	elif set(a_node.family).issubset(set(unvisited)) and set(unvisited).issubset(set(a_node.family)): #If unvisited is the same set as the current nodes family.
+		return False
+	else: #A current node, loops through unvisited node
+		copy_unvisited = unvisited[:] #Crucial: As unvisited is changing, you don't want each node to have a new unvisited list to check
+		random.shuffle(copy_unvisited) #Ensures that selection and produced arrangment is pseudorandom
+		for member in copy_unvisited:
+			if member.name not in a_node.family:
+				if traversal(member, current_stack):
+					return True
+		current_stack.pop()
+		unvisited.append(a_node)
+		return False			
 
 
 #Read in names
 
-participants = open('names.txt')
+participants = open('olive.txt')
 participants = [names.strip('\n').split(' ') for names in participants]
 graph = []
-for names in participants:
+for names in participants: #Creates nodes with name and family members
 	for name in names:
 		family = names[:]
 		family.remove(name)
@@ -51,10 +61,9 @@ unvisited = graph
 
 #Traverse and see path:
 
-path = traversal(unvisited[0]) #What if you started with a person with no family?
-path = path.split(' ')
-for index, name in enumerate(path):
-	if index == len(path)-1:
-		print name + ' -> ' + path[0]
-	else:
-		print name + ' -> ' + path[index+1] 
+bag = []
+traversal(unvisited[random.randint(0,len(unvisited)-1)], bag) #Selects random participant to start with to organize
+bag.append(bag[0]) #Appends first person to the end as well
+bag = [x.name for x in bag]
+for x in range(len(bag)-1):
+	print bag[x] + ' -> ' + bag[x+1]
