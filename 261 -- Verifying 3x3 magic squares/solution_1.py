@@ -4,7 +4,7 @@ Title: Verifying 3x3 magic squares
 
 Objective: Given an input array that represents a 3x3 magic square, verify
 
-Bonus: Do NxN magic squares and incomplete magic squares
+Bonus: Do NxN magic squares and incomplete magic squares (Still need to do incomplete squares)
 
 Assumption: All numbers are used from 1 to n^2, so no need to check that
 
@@ -22,7 +22,7 @@ def square_verifier(square, N):
             return False
     for y in range(N): #Checks columns
         col_sum = 0
-        for i in range(0, N**2, N): #0 3 6
+        for i in range(0, N**2, N): 
             col_sum += square[y + i]
         if col_sum != final_sum:
             return False
