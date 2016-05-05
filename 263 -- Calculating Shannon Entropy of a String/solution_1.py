@@ -11,11 +11,8 @@ Personal goals: Achieve more one liners and maybe find a way to use numpy?
 import math, sys
 
 def shannon_entropy(symbol_count, N):
-    current_sum = 0
-    for symbol in symbol_count: #Loop is basically a sum
-            frequency = symbol_count[symbol]/float(N)
-            current_sum += frequency * math.log(frequency, 2)
-    return -1*current_sum
+    frequencies = [symbol_count[symbol]/float(N) for symbol in symbol_count]
+    return -1 * sum(freq * math.log(freq, 2) for freq in frequencies)
 
 input_file = open(sys.argv[1])
 
