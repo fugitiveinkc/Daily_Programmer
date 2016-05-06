@@ -16,12 +16,9 @@ def shannon_entropy(symbol_count, N):
 
 input_file = open(sys.argv[1])
 
-for line in input_file: #Read lines from input
-    line = line.strip('\n')
-    symbol_count = dict()
-    for char in line: #Create a dictionary with frequencies of each symbol in line
-        if char in symbol_count.keys():
-            symbol_count[char] += 1
-        else:
-            symbol_count[char] = 1
-    print shannon_entropy(symbol_count, len(line)) #Print shannon entropy
+for line in input_file:
+    symbol_count = {char:0 for char in line.strip('\n')}
+    for char in line.strip('\n'):
+        symbol_count[char] += 1
+    print shannon_entropy(symbol_count, len(line.strip('\n'))) #Print shannon entropy
+
